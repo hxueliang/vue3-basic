@@ -1,4 +1,4 @@
 import { createApp } from 'vue';
-import App from './App/11-模板引用.vue';
+import App from './App/12-provide和inject.vue';
 
 createApp(App).mount('#app');
