@@ -1,17 +1,32 @@
 <!-- 
   11-模板引用
+
+  通过ref标识获取真实的dom对象或者组件实例对象
+  可以获取dom，也可以获取组件
 -->
 
 <script setup>
+import { ref } from 'vue';
 import TestCom from '@/components/11/TestCom.vue';
+
+const inputRef = ref(null);
+const handleClick = () => inputRef.value.focus();
+
+const testRef = ref(null);
+const handleClick2 = () => {
+  const { count, fn } = testRef.value;
+  console.log(count, fn());
+};
 </script>
 
 <template>
   <div>
     <div>
-      <input type="text">
-      <button>点击让输入框获取焦点</button>
+      <input type="text" ref="inputRef">
+      <button @click="handleClick">点击让输入框获取焦点</button>
     </div>
-    <TestCom />
+
+    <TestCom ref="testRef" />
+    <button @click="handleClick2">点击test组件</button>
   </div>
 </template>
