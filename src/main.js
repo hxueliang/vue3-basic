@@ -1,4 +1,4 @@
 import { createApp } from 'vue';
-import App from './App/12-provide和inject.vue';
+import App from './App/13-defineOptions.vue';
 
 createApp(App).mount('#app');
