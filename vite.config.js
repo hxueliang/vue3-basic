@@ -7,6 +7,9 @@ import vue from '@vitejs/plugin-vue';
 export default defineConfig({
   plugins: [
     vue({
+      script: {
+        defineModel: true
+      }
     }),
   ],
   resolve: {
