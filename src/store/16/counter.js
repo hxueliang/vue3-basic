@@ -15,6 +15,15 @@ export const useCounterStore = defineStore('counter', () => {
    */
   const msg = ref('hello');
 
+  /**
+   * obj
+   */
+  const obj = ref({
+    name: 'html',
+    age: 20,
+  });
+  const setObj = () => obj.value = { name: 'js', age: '18' }; // 相当与action + mutation
+
   return {
     count,
     doubleCount,
@@ -22,5 +31,8 @@ export const useCounterStore = defineStore('counter', () => {
     subCount,
 
     msg,
+
+    obj,
+    setObj,
   };
 });

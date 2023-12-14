@@ -1,10 +1,10 @@
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
 
-import App from './App/18-pinia-storeToRefs方法.vue';
+import App from './App/19-pinia持久化.vue';
 
-const app = createApp(App);
 const painia = createPinia();
 
+const app = createApp(App);
 app.use(painia);
 app.mount('#app');
