@@ -18,4 +18,6 @@ export const useChannelStore = defineStore('channel', () => {
     channelList,
     getChannel,
   };
+}, {
+  persist: true,
 });

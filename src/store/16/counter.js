@@ -35,4 +35,11 @@ export const useCounterStore = defineStore('counter', () => {
     obj,
     setObj,
   };
+}, {
+  // persist: true,
+  persist: {
+    key: '17-counter',
+    // storage: sessionStorage,
+    paths: ['count', 'obj.name'], // 指定 state 中哪些数据需要被持久化
+  }
 });
