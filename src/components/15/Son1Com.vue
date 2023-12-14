@@ -3,13 +3,18 @@
 -->
 
 <script setup>
+import { useCounterStore } from '@/store/16/counter.js';
+
+const counterStore = useCounterStore();
 </script>
 
 <template>
   <div class="son">
     <h3>
       Son1 Com
-      <button>+</button>
+      * {{ counterStore.count }}
+      * {{ counterStore.doubleCount }}
+      <button @click="counterStore.addCount">+</button>
     </h3>
   </div>
 </template>
