@@ -22,7 +22,7 @@ const modelValue = defineModel();
     <input :value="modelValue" @input="e => emit('update:modelValue', e.target.value)" />
     -->
 
-    <!-- 旧版Vue3，v-model -->
+    <!-- 新版Vue3，v-model -->
     <input :value="modelValue" @input="e => modelValue = e.target.value" />
   </div>
 </template>
