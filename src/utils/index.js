@@ -1,1 +1,1 @@
-export { request } from './http';
+export { addBasePath } from './addBasePath';
