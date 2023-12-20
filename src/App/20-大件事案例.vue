@@ -3,6 +3,7 @@
 
   1.按需引入ElementPlus组件库
   2.pinia独立维护和统一导出
+  3.封装axios
 -->
 
 <script setup>
