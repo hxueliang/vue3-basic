@@ -4,13 +4,13 @@ import { User, Lock } from '@element-plus/icons-vue';
 
 const isRegister = ref(true);
 
-const fromModule = ref({
+const formModule = ref({
   username: '',
   password: '',
   repassword: '',
 });
 
-const fromRules = {
+const formRules = {
   username: [
     { required: true, message: '请输入用户名', trigger: 'blur' },
     { min: 1, max: 10, message: '用户名必需小于10位字符', trigger: 'blur' },
@@ -24,7 +24,7 @@ const fromRules = {
     { pattern: /^\S{6,15}$/, message: '密码必须是6-15位的非空字符', trigger: 'blur' },
     {
       validator: (rule, value, callback) => {
-        if (value !== fromModule.value.password) {
+        if (value !== formModule.value.password) {
           callback(new Error('两次密码不匹配'));
         }
         callback();
@@ -39,18 +39,18 @@ const fromRules = {
   <el-row class="login-page">
     <el-col :span="12" class="bg"></el-col>
     <el-col :span="6" :offset="3" class="form">
-      <el-form :model="fromModule" :rules="fromRules" ref="form" size="large" autocomplete="off" v-if="isRegister">
+      <el-form :model="formModule" :rules="formRules" ref="form" size="large" autocomplete="off" v-if="isRegister">
         <el-form-item>
           <h1>注册</h1>
         </el-form-item>
         <el-form-item prop="username">
-          <el-input v-model="fromModule.username" :prefix-icon="User" placeholder="请输入用户名"></el-input>
+          <el-input v-model="formModule.username" :prefix-icon="User" placeholder="请输入用户名"></el-input>
         </el-form-item>
         <el-form-item prop="password">
-          <el-input v-model="fromModule.password" :prefix-icon="Lock" type="password" placeholder="请输入密码"></el-input>
+          <el-input v-model="formModule.password" :prefix-icon="Lock" type="password" placeholder="请输入密码"></el-input>
         </el-form-item>
         <el-form-item prop="repassword">
-          <el-input v-model="fromModule.repassword" :prefix-icon="Lock" type="password" placeholder="请再次输入密码"></el-input>
+          <el-input v-model="formModule.repassword" :prefix-icon="Lock" type="password" placeholder="请再次输入密码"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button class="button" type="primary" auto-insert-space>
