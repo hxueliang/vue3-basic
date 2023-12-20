@@ -2,6 +2,8 @@
 import { ref } from 'vue';
 import { User, Lock } from '@element-plus/icons-vue';
 
+import { userRegisterAPI } from '@/api/20/user';
+
 const isRegister = ref(true);
 
 const formModule = ref({
@@ -9,6 +11,8 @@ const formModule = ref({
   password: '',
   repassword: '',
 });
+
+const form = ref(null);
 
 const formRules = {
   username: [
@@ -33,6 +37,15 @@ const formRules = {
     },
   ],
 };
+
+const handleRegister = async () => {
+  await form.value.validate();
+  // 表单交验通过，调注册接口
+  const { message } = await userRegisterAPI(formModule.value);
+  ElMessage.success(message || '注册成功');
+  isRegister.value = false;
+};
+
 </script>
 
 <template>
@@ -53,7 +66,7 @@ const formRules = {
           <el-input v-model="formModule.repassword" :prefix-icon="Lock" type="password" placeholder="请再次输入密码"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button class="button" type="primary" auto-insert-space>
+          <el-button @click="handleRegister" class="button" type="primary" auto-insert-space>
             注册
           </el-button>
         </el-form-item>
