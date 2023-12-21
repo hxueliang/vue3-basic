@@ -6,3 +6,10 @@ import request from '@/utils/request';
  * @returns 
  */
 export const userRegisterAPI = params => request.post('/api/reg', params);
+
+/**
+ * 登录
+ * @param {object} params 表单数据
+ * @returns 
+ */
+export const userLoginAPI = params => request.post('/api/login', params);
