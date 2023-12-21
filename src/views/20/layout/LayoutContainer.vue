@@ -10,6 +10,7 @@ import {
   CaretBottom
 } from '@element-plus/icons-vue';
 import { storeToRefs } from 'pinia';
+import { useRouter } from 'vue-router';
 
 import { useUserStore } from '@/store';
 import avatar from '@/assets/images/20/default.png';
@@ -29,8 +30,31 @@ const menu = [
 
 const userStore = useUserStore();
 const { user } = storeToRefs(userStore);
-const { getUser } = userStore;
+const { getUser, setUser, setToken } = userStore;
 getUser();
+
+const router = useRouter();
+const handleCommand = async (command) => {
+  if (command === 'logout') {
+    try {
+      await ElMessageBox.confirm('你确认要认出么', '温馨提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      });
+
+      setToken('');
+      setUser({});
+      router.push(`/20/login`);
+      ElMessage({ type: 'success', message: '退出成功' });
+
+    } catch (err) {
+      console.log(err);
+    }
+    return;
+  }
+  router.push(`/20/user/${command}`);
+};
 </script>
 
 <template>
@@ -68,7 +92,7 @@ getUser();
     <el-container>
       <el-header>
         <div>程序员：<strong>{{ user.nickname || user.username }}</strong></div>
-        <el-dropdown placement="bottom-end">
+        <el-dropdown placement="bottom-end" @command="handleCommand">
           <span class="el-dropdown__box">
             <el-avatar :src="user.user_pic || avatar" />
             <el-icon>

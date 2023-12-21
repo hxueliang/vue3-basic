@@ -17,6 +17,7 @@ export const useUserStore = defineStore('20-user', () => {
       new Error('获取用户信息失败');
     }
   };
+  const setUser = (obj = {}) => user.value = obj;
 
   return {
     token,
@@ -24,6 +25,7 @@ export const useUserStore = defineStore('20-user', () => {
 
     user,
     getUser,
+    setUser,
   };
 }, {
   persist: true,
