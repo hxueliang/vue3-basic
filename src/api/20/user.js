@@ -13,3 +13,9 @@ export const userRegisterAPI = params => request.post('/api/reg', params);
  * @returns 
  */
 export const userLoginAPI = params => request.post('/api/login', params);
+
+/**
+ * 获取用户的基本信息
+ * @returns 
+ */
+export const userInfoAPI = () => request.get('/my/userinfo');

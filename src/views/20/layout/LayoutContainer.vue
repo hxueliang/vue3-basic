@@ -9,7 +9,9 @@ import {
   SwitchButton,
   CaretBottom
 } from '@element-plus/icons-vue';
+import { storeToRefs } from 'pinia';
 
+import { useUserStore } from '@/store';
 import avatar from '@/assets/images/20/default.png';
 
 const menu = [
@@ -24,6 +26,11 @@ const menu = [
     ]
   },
 ];
+
+const userStore = useUserStore();
+const { user } = storeToRefs(userStore);
+const { getUser } = userStore;
+getUser();
 </script>
 
 <template>
@@ -60,10 +67,10 @@ const menu = [
     </el-aside>
     <el-container>
       <el-header>
-        <div>程序员：<strong>hxl</strong></div>
+        <div>程序员：<strong>{{ user.nickname || user.username }}</strong></div>
         <el-dropdown placement="bottom-end">
           <span class="el-dropdown__box">
-            <el-avatar :src="avatar" />
+            <el-avatar :src="user.user_pic || avatar" />
             <el-icon>
               <CaretBottom />
             </el-icon>

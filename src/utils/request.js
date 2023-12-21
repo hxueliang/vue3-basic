@@ -10,10 +10,9 @@ const request = axios.create({
   timeout: 5000,
 });
 
-const userStore = useUserStore();
-
 // 添加请求拦截器
 request.interceptors.request.use((config) => {
+  const userStore = useUserStore();
   const token = userStore.token;
   if (token) {
     config.headers.Authorization = token;
@@ -35,6 +34,7 @@ request.interceptors.response.use(({ data }) => {
   // 超出 2xx 范围的状态码都会触发该函数
   const { status, data } = error.response;
   if (status === 401) {
+    const userStore = useUserStore();
     userStore.setToken('');
     router.navigate('/20/login');
     window.location.reload();
