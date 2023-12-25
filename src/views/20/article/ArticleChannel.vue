@@ -3,8 +3,10 @@ import { ref } from 'vue';
 import { Edit, Delete } from '@element-plus/icons-vue';
 
 import { acticleTypeAPI } from '@/api/20/article';
+import ChannelEidt from './components/ChannelEdit.vue';
 
-let loading = ref(false);
+const loading = ref(false);
+const dialog = ref(null);
 
 const channelList = ref([]);
 const getChannelList = async () => {
@@ -20,8 +22,12 @@ const getChannelList = async () => {
 };
 getChannelList();
 
+const handleAddType = () => {
+  dialog.value.open({});
+};
+
 const handleEdit = row => {
-  console.log(row);
+  dialog.value.open(row);
 };
 
 const handleDelete = row => {
@@ -32,7 +38,7 @@ const handleDelete = row => {
 <template>
   <PageContainer title="文章分类">
     <template #extra>
-      <el-button type="primary">添加分类</el-button>
+      <el-button type="primary" @click="handleAddType">添加分类</el-button>
     </template>
 
     <el-table :data="channelList" v-loading="loading" style="width: 100%">
@@ -51,5 +57,7 @@ const handleDelete = row => {
       </template>
 
     </el-table>
+
+    <ChannelEidt ref="dialog"></ChannelEidt>
   </PageContainer>
 </template>
