@@ -19,3 +19,10 @@ export const addActicleTypeAPI = params => request.post('/my/cate/add', params);
  * @returns 
  */
 export const editActicleTypeAPI = params => request.put('/my/cate/info', params);
+
+/**
+ * 删除文章分类
+ * @param {objer} params 请求数据
+ * @returns 
+ */
+export const delActicleTypeAPI = params => request.delete('/my/cate/del', { params });

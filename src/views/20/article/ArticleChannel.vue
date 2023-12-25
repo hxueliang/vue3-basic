@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 import { Edit, Delete } from '@element-plus/icons-vue';
 
-import { acticleTypeAPI } from '@/api/20/article';
+import { acticleTypeAPI, delActicleTypeAPI } from '@/api/20/article';
 import ChannelEidt from './components/ChannelEdit.vue';
 
 const loading = ref(false);
@@ -30,8 +30,19 @@ const handleEdit = row => {
   dialog.value.open(row);
 };
 
-const handleDelete = row => {
-  console.log(row);
+const handleDelete = async row => {
+  try {
+    await ElMessageBox.confirm(`确认删除“${row.cate_name}”分类吗？`, '温馨提法', {
+      confirmButtonText: '确认',
+      cancelButtonText: '取消',
+      type: 'warning',
+    });
+    await delActicleTypeAPI({ id: row.id });
+    ElMessage.success('删除成功');
+    getChannelList();
+  } catch (err) {
+    console.log(err);
+  }
 };
 </script>
 
