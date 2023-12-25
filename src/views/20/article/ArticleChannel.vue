@@ -58,6 +58,6 @@ const handleDelete = row => {
 
     </el-table>
 
-    <ChannelEidt ref="dialog"></ChannelEidt>
+    <ChannelEidt ref="dialog" @update="getChannelList"></ChannelEidt>
   </PageContainer>
 </template>
