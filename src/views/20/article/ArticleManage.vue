@@ -8,6 +8,7 @@ import { formatTime } from '@/utils';
 
 const articleList = ref([]);
 const total = ref(0);
+const loading = ref(false);
 
 // 请求参数
 const params = ref({
@@ -22,10 +23,13 @@ const params = ref({
  */
 const getArticleList = async () => {
   try {
+    loading.value = true;
     const { data, total: _total } = await acticleListAPI(params.value);
+    loading.value = false;
     articleList.value = data;
     total.value = _total;
   } catch (err) {
+    loading.value = false;
     console.log(err);
   }
 };
@@ -89,7 +93,7 @@ const handleDelete = row => {
       </el-form-item>
     </el-form>
 
-    <el-table :data="articleList">
+    <el-table :data="articleList" v-loading="loading">
       <el-table-column label="文章标题" prop="title">
         <template #default="{ row }">
           <el-link type="primary" :underline="false">{{ row.title }}</el-link>
