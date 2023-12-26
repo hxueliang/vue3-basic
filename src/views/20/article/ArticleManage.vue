@@ -10,13 +10,16 @@ const articleList = ref([]);
 const total = ref(0);
 const loading = ref(false);
 
-// 请求参数
-const params = ref({
+// 请求参数默认值
+const defaultParams = {
   pagenum: 1,
   pagesize: 5,
   cate_id: '',
   state: '',
-});
+};
+
+// 请求参数
+const params = ref({ ...defaultParams });
 
 /**
  * 获取文章列表
@@ -55,6 +58,22 @@ const handleCurrentChange = (page) => {
 };
 
 /**
+ * 搜索
+ */
+const handleSearch = () => {
+  params.value.pagenum = 1;
+  getArticleList();
+};
+
+/**
+ * 重置
+ */
+const handleReset = () => {
+  params.value = { ...defaultParams };
+  getArticleList();
+};
+
+/**
  * 编辑文章
  * @param {object} row 行数据
  */
@@ -88,8 +107,8 @@ const handleDelete = row => {
         </el-select>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary">搜索</el-button>
-        <el-button>重置</el-button>
+        <el-button type="primary" @click="handleSearch">搜索</el-button>
+        <el-button @click="handleReset">重置</el-button>
       </el-form-item>
     </el-form>
 
