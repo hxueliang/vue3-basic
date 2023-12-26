@@ -2,6 +2,8 @@
 import { ref } from 'vue';
 import { Edit, Delete } from '@element-plus/icons-vue';
 
+import ChannelSelect from './components/ChannelSelect.vue';
+
 const articleList = ref([
   {
     id: 5961,
@@ -18,6 +20,14 @@ const articleList = ref([
     cate_name: "体育"
   }
 ]);
+
+// 请求参数
+const params = ref({
+  pagenum: 1,
+  pagesize: 5,
+  cate_id: '',
+  state: '',
+});
 
 /**
  * 编辑文章
@@ -44,13 +54,10 @@ const handleDelete = row => {
 
     <el-form inline>
       <el-form-item label="文章分类：">
-        <el-select>
-          <el-option label="HTML" value="h5"></el-option>
-          <el-option label="CSS" value="c3"></el-option>
-        </el-select>
+        <ChannelSelect v-model="params.cate_id"></ChannelSelect>
       </el-form-item>
       <el-form-item label="文章状态：">
-        <el-select>
+        <el-select v-model="params.state">
           <el-option label="已发布" value="已发布"></el-option>
           <el-option label="草稿" value="草稿"></el-option>
         </el-select>

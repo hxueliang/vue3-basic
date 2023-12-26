@@ -20,6 +20,7 @@
   17.文章分类删除功能
   18.文章管理表单和表格
   19.全局汉化element-plus
+  20.ChannelSelect封装
 -->
 
 <script setup>
