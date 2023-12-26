@@ -19,13 +19,17 @@
   16.文章分类添加和编辑
   17.文章分类删除功能
   18.文章管理表单和表格
+  19.全局汉化element-plus
 -->
 
 <script setup>
+import zhCn from 'element-plus/dist/locale/zh-cn.mjs';
 </script>
 
 <template>
   <div>
-    <router-view></router-view>
+    <el-config-provider :locale="zhCn">
+      <router-view></router-view>
+    </el-config-provider>
   </div>
 </template>
