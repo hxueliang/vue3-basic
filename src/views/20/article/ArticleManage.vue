@@ -32,6 +32,25 @@ const getArticleList = async () => {
 getArticleList();
 
 /**
+ * 切换分页大小
+ * @param {number} size 分页大小
+ */
+const handleSizeChange = (size) => {
+  params.value.pagenum = 1;
+  params.value.pagesize = size;
+  getArticleList();
+};
+
+/**
+ * 切换页码
+ * @param {number} page 当前页码
+ */
+const handleCurrentChange = (page) => {
+  params.value.pagenum = page;
+  getArticleList();
+};
+
+/**
  * 编辑文章
  * @param {object} row 行数据
  */
@@ -90,5 +109,16 @@ const handleDelete = row => {
         </template>
       </el-table-column>
     </el-table>
+
+    <el-pagination v-model:current-page="params.pagenum" v-model:page-size="params.pagesize" :page-sizes="[2, 3, 5, 6]"
+      :background="true" layout="jumper, total, sizes, prev, pager, next" :total="total" @size-change="handleSizeChange"
+      @current-change="handleCurrentChange" />
   </PageContainer>
 </template>
+
+<style lang="scss">
+.el-pagination {
+  margin-top: 20px;
+  justify-content: flex-end;
+}
+</style>
