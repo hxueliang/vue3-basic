@@ -3,12 +3,15 @@ import { ref } from 'vue';
 import { Edit, Delete } from '@element-plus/icons-vue';
 
 import ChannelSelect from './components/ChannelSelect.vue';
+import ArticleEdit from './components/ArticleEdit.vue';
+
 import { acticleListAPI } from '@/api/20/article';
 import { formatTime } from '@/utils';
 
 const articleList = ref([]);
 const total = ref(0);
 const loading = ref(false);
+const articleEditRef = ref(null);
 
 // 请求参数默认值
 const defaultParams = {
@@ -74,11 +77,18 @@ const handleReset = () => {
 };
 
 /**
+ * 发布文章
+ */
+const handlePublish = () => {
+  articleEditRef.value.open();
+};
+
+/**
  * 编辑文章
  * @param {object} row 行数据
  */
 const handleEdit = row => {
-  console.log(row);
+  articleEditRef.value.open(row);
 };
 
 /**
@@ -93,9 +103,10 @@ const handleDelete = row => {
 <template>
   <PageContainer title="文章管理">
     <template #extra>
-      <el-button type="primary">发布文章</el-button>
+      <el-button type="primary" @click="handlePublish">发布文章</el-button>
     </template>
 
+    <!-- 表单 -->
     <el-form inline>
       <el-form-item label="文章分类：">
         <ChannelSelect v-model="params.cate_id"></ChannelSelect>
@@ -112,6 +123,7 @@ const handleDelete = row => {
       </el-form-item>
     </el-form>
 
+    <!-- 表格 -->
     <el-table :data="articleList" v-loading="loading">
       <el-table-column label="文章标题" prop="title">
         <template #default="{ row }">
@@ -133,9 +145,13 @@ const handleDelete = row => {
       </el-table-column>
     </el-table>
 
+    <!-- 分页 -->
     <el-pagination v-model:current-page="params.pagenum" v-model:page-size="params.pagesize" :page-sizes="[2, 3, 5, 6]"
       :background="true" layout="jumper, total, sizes, prev, pager, next" :total="total" @size-change="handleSizeChange"
       @current-change="handleCurrentChange" />
+
+    <!-- 添加、编辑文章 -->
+    <ArticleEdit ref="articleEditRef" />
   </PageContainer>
 </template>
 
