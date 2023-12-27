@@ -79,8 +79,12 @@ const handleReset = () => {
 /**
  * 刷新页面信息
  */
-const handleUpdateList = () => {
-  console.log('update');
+const handleUpdateList = (isEdit) => {
+  if (!isEdit) {
+    const lastPage = Math.ceil((total.value + 1) / params.value.pagesize);
+    params.value.pagenum = lastPage;
+  }
+  getArticleList();
 };
 
 /**

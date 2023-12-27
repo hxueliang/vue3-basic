@@ -1,10 +1,12 @@
 <script setup>
 import { computed, ref } from 'vue';
+import axios from 'axios';
 import { Plus } from '@element-plus/icons-vue';
 import { QuillEditor } from '@vueup/vue-quill';
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
 
 import { getActicleAPI, addActicleAPI, editActicleAPI } from '@/api/20/article';
+import { baseURL } from '@/utils/request';
 
 import ChannelSelect from './ChannelSelect.vue';
 
@@ -23,10 +25,10 @@ const rules = {
   cate_id: [],
   content: [],
   cover_img: [],
-  state: [],
 };
 const emit = defineEmits(['update']);
 const imageUrl = ref('');
+const quillEditorRef = ref(null);
 
 const onChange = (data) => {
   imageUrl.value = URL.createObjectURL(data.raw);
@@ -42,15 +44,20 @@ const onChange = (data) => {
   */
 };
 
-const handleSubmit = async () => {
+const handleSubmit = async (state) => {
   await formRef.value.validate();
   const isEdit = !!formModel.value.id;
+  formModel.value.state = state;
+  const fd = new FormData();
+  for (const key in formModel.value) {
+    fd.append(key, formModel.value[key]);
+  }
   try {
     isEdit
-      ? await editActicleAPI(formModel.value)
-      : await addActicleAPI(formModel.value);
+      ? await editActicleAPI(fd)
+      : await addActicleAPI(fd);
     ElMessage.success(isEdit ? '编辑成功' : '添加成功');
-    emit('update');
+    emit('update', isEdit);
   } catch (err) {
     console.log(err);
   }
@@ -63,18 +70,66 @@ const title = computed(() => {
   return formModel.value.id ? '编辑文章' : '添加文章';
 });
 
+/**
+ * 将网络图片地址转换为File对象
+ * chatGPT prompt：封装一个函数，基于 axios， 网络图片地址，转 file 对象， 请注意：写中文注释
+ * 
+ * @param {string} url 图片地址
+ * @param {string} fileName 图片名称
+ * @returns file
+ */
+const imageUrlToFile = async (url, fileName = '图片.jpg') => {
+  try {
+    // 第一步：使用axios获取网络图片数据
+    const response = await axios.get(url, { responseType: 'arraybuffer' });
+    const imageData = response.data;
+
+    // 第二步：将图片数据转换为Blob对象
+    const blob = new Blob([imageData], { type: response.headers['content-type'] });
+
+    // 第三步：创建一个新的File对象
+    const file = new File([blob], fileName, { type: blob.type });
+
+    return file;
+  } catch (error) {
+    console.error('将图片转换为File对象时发生错误:', error);
+    throw error;
+  }
+};
 
 const open = async ({ id } = {}) => {
   if (id) {
     try {
-      const { data } = await getActicleAPI({ id });
-      formModel.value = data;
-      console.log(data);
+      const { data: {
+        title,
+        cate_id,
+        content,
+        cover_img,
+        state,
+      } } = await getActicleAPI({ id });
+      const _cover_img = `${baseURL.slice(0, -1)}${cover_img}`;
+      formModel.value = {
+        id,
+        title,
+        cate_id,
+        content,
+        cover_img: await imageUrlToFile(_cover_img),
+        state,
+      };
+      imageUrl.value = _cover_img;
+      setTimeout(() => {
+        quillEditorRef.value.setHTML(content);
+      });
     } catch (error) {
       console.log(error);
+      throw new Error('获取文章列表错误', error);
     }
   } else {
     formModel.value = { ...defaultForm };
+    imageUrl.value = '';
+    setTimeout(() => {
+      quillEditorRef.value.setHTML('');
+    });
   }
   visibleDrawer.value = true;
 };
@@ -103,12 +158,12 @@ defineExpose({
       </el-form-item>
       <el-form-item label="文章内容" prop="content">
         <div class="editor">
-          <QuillEditor v-model:content="formModel.content" content-type="html" theme="snow" />
+          <QuillEditor v-model:content="formModel.content" ref="quillEditorRef" content-type="html" theme="snow" />
         </div>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="handleSubmit">发布</el-button>
-        <el-button type="info">草稿</el-button>
+        <el-button type="primary" @click="handleSubmit('已发布')">发布</el-button>
+        <el-button type="info" @click="handleSubmit('草稿')">草稿</el-button>
       </el-form-item>
     </el-form>
   </el-drawer>
