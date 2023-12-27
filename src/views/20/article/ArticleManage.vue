@@ -77,6 +77,13 @@ const handleReset = () => {
 };
 
 /**
+ * 刷新页面信息
+ */
+const handleUpdateList = () => {
+  console.log('update');
+};
+
+/**
  * 发布文章
  */
 const handlePublish = () => {
@@ -151,7 +158,7 @@ const handleDelete = row => {
       @current-change="handleCurrentChange" />
 
     <!-- 添加、编辑文章 -->
-    <ArticleEdit ref="articleEditRef" />
+    <ArticleEdit ref="articleEditRef" @update="handleUpdateList" />
   </PageContainer>
 </template>
 

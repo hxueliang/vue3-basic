@@ -41,3 +41,24 @@ export const delActicleTypeAPI = params => request.delete('/my/cate/del', { para
  * @returns 
  */
 export const acticleListAPI = params => request.get('/my/article/list', { params });
+
+/**
+ * 获取文章详情
+ * @param {object} params 请求参数
+ * @returns 
+ */
+export const getActicleAPI = params => request.get('/my/article/info', { params });
+
+/**
+ * 添加文章
+ * @param {object} params 请求参数
+ * @returns 
+ */
+export const addActicleAPI = params => request.post('/my/article/add', params);
+
+/**
+ * 编辑文章
+ * @param {object} params 请求参数
+ * @returns 
+ */
+export const editActicleAPI = params => request.put('/my/article/info', params);
