@@ -1,6 +1,8 @@
 <script setup>
 import { computed, ref } from 'vue';
 import { Plus } from '@element-plus/icons-vue';
+import { QuillEditor } from '@vueup/vue-quill';
+import '@vueup/vue-quill/dist/vue-quill.snow.css';
 
 import { getActicleAPI, addActicleAPI, editActicleAPI } from '@/api/20/article';
 
@@ -101,6 +103,7 @@ defineExpose({
       </el-form-item>
       <el-form-item label="文章内容" prop="content">
         <div class="editor">
+          <QuillEditor v-model:content="formModel.content" content-type="html" theme="snow" />
         </div>
       </el-form-item>
       <el-form-item>
@@ -140,6 +143,14 @@ defineExpose({
       height: 178px;
       text-align: center;
     }
+  }
+}
+
+.editor {
+  width: 100%;
+
+  :deep(.ql-editor) {
+    min-height: 200px;
   }
 }
 </style>
