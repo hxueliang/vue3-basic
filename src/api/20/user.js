@@ -26,3 +26,10 @@ export const userInfoAPI = () => request.get('/my/userinfo');
  * @returns 
  */
 export const updateUesrInfoAPI = params => request.put('/my/userinfo', params);
+
+/**
+ * 更新用户头像
+ * @param {object} params 表单数据
+ * @returns 
+ */
+export const updateUserAvatarAPI = params => request.patch('/my/update/avatar', params);

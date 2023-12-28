@@ -33,7 +33,7 @@ const submitForm = async () => {
   try {
     await formRef.value.validate();
     await updateUesrInfoAPI(formData.value);
-    getUser();
+    await getUser();
     ElMessage.success('修改成功');
   } catch (error) {
     console.log(error);
