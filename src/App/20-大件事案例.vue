@@ -31,6 +31,7 @@
   28.文章列表引入vue-quill
   29.文章列表添加和编辑
   30.ChatGPT-Prompt优化
+  31.Github copilot 智能生成代码
 -->
 
 <script setup>
@@ -59,4 +60,15 @@ import zhCn from 'element-plus/dist/locale/zh-cn.mjs';
   Prompt3：
   你刚才说的方向完全没有问题，但是我想看到更多的项目技术亮点，项目业务解决方案。
   请注意：每个项目3个技术亮点，3个业务解决方案。
- -->
+-->
+
+ <!-- 
+  31.Github copilot 智能生成代码
+  
+  const arr = [1,2,4,3]
+  // 可以传入数组 按Tab
+  function sortArr(arr) {
+    按：Tab
+    更多方案：crlt + enter
+  }
+-->
