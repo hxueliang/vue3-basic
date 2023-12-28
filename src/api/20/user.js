@@ -19,3 +19,10 @@ export const userLoginAPI = params => request.post('/api/login', params);
  * @returns 
  */
 export const userInfoAPI = () => request.get('/my/userinfo');
+
+/**
+ * 更新用户信息
+ * @param {object} params 表单数据
+ * @returns 
+ */
+export const updateUesrInfoAPI = params => request.put('/my/userinfo', params);

@@ -32,6 +32,7 @@
   29.文章列表添加和编辑
   30.ChatGPT-Prompt优化
   31.Github copilot 智能生成代码
+  32.基本资料
 -->
 
 <script setup>
