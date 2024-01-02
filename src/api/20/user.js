@@ -33,3 +33,10 @@ export const updateUesrInfoAPI = params => request.put('/my/userinfo', params);
  * @returns 
  */
 export const updateUserAvatarAPI = params => request.patch('/my/update/avatar', params);
+
+/**
+ * 更新用户密码
+ * @param {object} params 表单数据
+ * @returns 
+ */
+export const updateUserPwdAPI = params => request.patch('/my/updatepwd', params);

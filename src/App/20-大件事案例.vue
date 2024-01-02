@@ -34,6 +34,7 @@
   31.Github copilot 智能生成代码
   32.基本资料
   33.更换头像
+  34.重置密码
 -->
 
 <script setup>
