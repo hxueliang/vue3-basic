@@ -17,6 +17,11 @@ import { ref, watch } from "vue";
 const count = ref(0);
 const addCount = () => count.value++;
 watch(count, (newValue, oldValue) => {
+  /**
+   * 第一次（自动执行）：1 undefined
+   * 第二次：2 1
+   * 第三次：3 2
+   */
   console.log(newValue, oldValue);
 }, {
   immediate: true,
@@ -51,19 +56,19 @@ watch(arr, (newValue, oldValue) => {
     <!-- immediate -->
     <div>
       {{ count }}
-      <button @click="addCount">count</button>
+      <button @click="addCount">add count</button>
     </div>
 
     <!-- deep: obj -->
     <div>
       {{ obj }}
-      <button @click="addAge">obj</button>
+      <button @click="addAge">add obj.age</button>
     </div>
 
     <!-- deep: arr -->
     <div>
       {{ arr }}
-      <button @click="addArr">arr</button>
+      <button @click="addArr">add arr[0]</button>
     </div>
   </div>
 </template>
