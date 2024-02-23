@@ -55,7 +55,7 @@ onMounted(() => {
 
 /**
  * 在beforeUnmount，放在onBeforeUnmount
- * Todo: 持续添加路由模块，再回来测试
+ * 路由： /08/login
  */
 onBeforeUnmount(() => {
   clearInterval(timer);
@@ -65,5 +65,7 @@ onBeforeUnmount(() => {
 
 <template>
   <div>
+    app
+    <router-view></router-view>
   </div>
 </template>

@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
 import { useUserStore } from '@/store';
+import router08 from './08';
 import router20 from './20';
 
 const BASE_PATH = '20';
@@ -8,6 +9,7 @@ const BASE_PATH = '20';
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+    ...router08,
     ...router20,
   ],
 });
