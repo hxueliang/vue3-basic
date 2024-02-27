@@ -25,8 +25,9 @@ const handleClick2 = () => {
       <input type="text" ref="inputRef">
       <button @click="handleClick">点击让输入框获取焦点</button>
     </div>
+    <br />
 
     <TestCom ref="testRef" />
-    <button @click="handleClick2">点击test组件</button>
+    <button @click="handleClick2">点击获取test组件暴露的数据</button>
   </div>
 </template>
